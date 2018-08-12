@@ -1,5 +1,6 @@
 #coding: utf-8
 
+import datetime
 import vk
 from random import randint as random
 from time import sleep
