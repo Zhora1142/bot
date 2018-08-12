@@ -34,6 +34,7 @@ def repost(object, nums):
            '169980485', '169980543', '169980587', '169980618', '169980637']
     n = 0
     for i in ids:
+        print('Бот сделал репост на группу \033[33m%s\033[0m \033[36m%s\033[0m' % (i,datetime.now()))
         api_profile.wall.repost(object=object, group_id=i)
         sleep(nums[n])
         n += 1
@@ -64,7 +65,7 @@ def main():
                 print('Бот не смог найти прикрепленную запись \033[36m%s\033[0m' % datetime.now())
             else:
                 nums = []
-                for i in range(0,9):
+                for i in range(0,10):
                     nums.append(random(3,10))
 
                 send(msg['from_id'], 'Бот начал делать репосты. Действие займет %s секунд' % sum(nums))
@@ -74,7 +75,8 @@ def main():
                 try:
                     mesa = 'wall%s_%s' %(msg['attachments'][0]['wall']['from_id'], msg['attachments'][0]['wall']['id'])
                     repost(mesa, nums)
-                except:
+                except Exception as ex:
+                    print ex
                     send(msg['from_id'], 'Не удалось сделать репосты. Возможно, у '
                                          'бота появилась капча, или пост находится в закрытой группе.')
                     print('Боту не удалось сделать репосты \033[36m%s\033[0m' % datetime.now())
@@ -89,3 +91,4 @@ def main():
         sleep(2)
 
 
+main()
