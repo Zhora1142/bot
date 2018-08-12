@@ -22,7 +22,13 @@ def longpoll():
 
 def getupd(lpinf):
     upds = api_group.messages.getLongPollHistory(ts=lpinf['ts'], pts=lpinf['pts'], lp_version='3')
-    return upds['messages']['items']
+    msg = upds['messages']['items']
+    n = 0
+    for i in msg:
+        if i['out'] == '1':
+            msg.pop(n)
+        n += 1
+    return msg
 
 
 def send(user_id, message):
@@ -49,13 +55,6 @@ def main():
         messages = getupd(lpinf)
         print('Бот получил обновление сообщений \033[36m%s\033[0m' % datetime.now())
 
-        n = 0
-
-        for i in messages:
-            if i['out'] == '1':
-                messages.pop(n)
-            n += 1
-
         for msg in messages:
             try:
                 msg['attachments'][0]['wall']
@@ -65,8 +64,8 @@ def main():
                 print('Бот не смог найти прикрепленную запись \033[36m%s\033[0m' % datetime.now())
             else:
                 nums = []
-                for i in range(0,10):
-                    nums.append(random(3,10))
+                for i in range(0, 10):
+                    nums.append(random(3, 10))
 
                 send(msg['from_id'], 'Бот начал делать репосты. Действие займет %s секунд' % sum(nums))
                 print('Бот начал делать репосты \033[36m%s\033[0m' % datetime.now())
