@@ -13,6 +13,7 @@ def msgs():
 
     upds = api_group.messages.getLongPollHistory(ts=inf['ts'], pts=inf['pts'], lp_version='3')
     msg = upds['messages']['items']
+    
     n = 0
     for i in msg:
         if i['out'] == '1':
