@@ -25,25 +25,12 @@ def send(user_id,message):
     api_group.messages.send(user_id=user_id,message=message)
 
 def repost(object,nums):
-    api_profile.wall.repost(object=object,group_id='169976139')
-    sleep(nums[0])
-    api_profile.wall.repost(object=object,group_id='169976170')
-    sleep(nums[1])
-    api_profile.wall.repost(object=object,group_id='169976196')
-    sleep(nums[2])
-    api_profile.wall.repost(object=object,group_id='169976274')
-    sleep(nums[3])
-    api_profile.wall.repost(object=object,group_id='169976293')
-    sleep(nums[4])
-    api_profile.wall.repost(object=object, group_id='169980485')
-    sleep(nums[5])
-    api_profile.wall.repost(object=object, group_id='169980543')
-    sleep(nums[6])
-    api_profile.wall.repost(object=object, group_id='169980587')
-    sleep(nums[7])
-    api_profile.wall.repost(object=object, group_id='169980618')
-    sleep(nums[8])
-    api_profile.wall.repost(object=object, group_id='169980637')
+    ids = ['169976139','169976170','169976196','169976274','169976293','169980485','169980543','169980587','169980618','169980637']
+    n = 0
+    for i in ids:
+        api_profile.wall.repost(object=object, group_id=i)
+        sleep(nums[n])
+        n+=1
 
 clear()
 
